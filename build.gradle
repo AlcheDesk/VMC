@@ -1,0 +1,125 @@
+plugins {
+    id "com.github.ben-manes.versions" version "0.27.0"
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "com.gorylenko.gradle-git-properties" version "2.2.0"
+}
+
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+
+group = 'com.meowlomo.vmc'
+version = '1.4'
+
+wrapper.gradleVersion = '6.0.1'
+
+description = "Virtual Machine Client"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+configurations {
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+repositories {
+	maven { url "http://repo.maven.apache.org/maven2"}
+	maven { url 'https://plugins.gradle.org/m2/'}
+	mavenCentral()
+	jcenter()
+}
+
+// Customize Git properties plugin.
+gitProperties {
+    // Change date format in git.properties file.
+    dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+    dateFormatTimeZone = 'GMT'
+}
+
+dependencies {
+    //osgi 
+    //compile files('libs/org.eclipse.osgi_3.12.50.v20170928-1321.jar')
+    //spring boot dependenies
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:'2.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jersey', version:'2.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version:'2.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.2.1.RELEASE'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.2.1.RELEASE'
+      
+    //swagger dependencies
+    compile group: 'io.swagger', name: 'swagger-jersey2-jaxrs', version:'1.6.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    
+    //osgi
+    // https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.osgi
+	compile group: 'org.eclipse.platform', name: 'org.eclipse.osgi', version: '3.14.0'
+    
+    //retrofit
+    compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.6.2'
+    compile group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.6.2'
+    compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '4.2.2'
+	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+    
+    //ssl
+    compile group: 'org.shredzone.acme4j', name: 'acme4j-client', version: '2.7'
+    compile group: 'org.shredzone.acme4j', name: 'acme4j-utils', version: '2.7'
+    
+    //hardware
+    compile group: 'com.github.oshi', name: 'oshi-core', version: '4.2.1'
+    compile group: 'net.java.dev.jna', name: 'jna', version: '5.5.0'
+    compile group: 'net.java.dev.jna', name: 'jna-platform', version: '5.5.0'
+
+    
+    // https://mvnrepository.com/artifact/gradle.plugin.com.athaydes.gradle.osgi/osgi-run-core
+	compile group: 'gradle.plugin.com.athaydes.gradle.osgi', name: 'osgi-run-core', version: '1.6.0'
+    
+    //encrypt
+    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.64'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    //guava
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+    
+    //jcifs
+//    compile group: 'org.samba.jcifs', name: 'jcifs', version: '1.3.18-kohsuke-1'
+    compile group: 'com.hierynomus', name: 'smbj', version: '0.9.1'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    
+    //in memory file system
+    compile group: 'com.google.jimfs', name: 'jimfs', version: '1.1'
+    
+    //compile group: 'biz.aQute.bnd', name: 'biz.aQute.bnd', version: '4.0.0'
+    
+    compile group: 'com.udojava', name: 'EvalEx', version: '2.4'
+    
+    //other language support
+    //python
+//    compile group: 'org.python', name: 'jython', version: '2.7.0'
+    // c# .net
+//    compile group: 'net.sf.jni4net', name: 'jni4net.j', version: '0.8.8.0', ext: 'pom'
+    //ruby
+//    compile group: 'org.jruby', name: 'jruby-complete', version: '9.2.8.0'
+    
+    
+    //dubbo support,for dubbo service test,supply a http api for bundle to call,for dubbo cann't work in OSGi
+	compile group: 'org.apache.dubbo', name: 'dubbo-spring-boot-starter', version: '2.7.3'
+	compile('org.apache.curator:curator-recipes:4.0.1')
+	compile('org.apache.curator:curator-framework:4.0.1')
+	compile('org.apache.curator:curator-client:4.0.1')
+	compile('org.apache.zookeeper:zookeeper:3.4.13')
+	
+	//local sql,for cache the recored task
+	compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.28.0'
+    
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.5.2'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.5.2'
+}

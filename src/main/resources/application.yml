@@ -1,0 +1,203 @@
+# ===================================================================
+# Meowlomo VMC Configuration
+# ===================================================================
+
+# ===================================================================
+# MEOWLOMO PROPERTIES
+# ===================================================================
+
+meowlomo.config.vmc.connection.authentication.enable: false
+meowlomo.config.vmc.filesystem.check.enable: false
+meowlomo.runtime.config.osgi.packagename.webdriver: com.meowlomo.ci.ems.bundle.interfaces.IWebDriver
+meowlomo.runtime.config.osgi.function.test.webdriver: doTestProcess
+meowlomo.runtime.config.osgi.function.end.webdriver: notifyTimeout
+
+##machineproeprties
+meowlomo.config.vmc.bandwidth: 100
+meowlomo.config.vmc.firefox.version: 62.0.3 (64位)
+meowlomo.config.vmc.chrome.version: 68.0.3440.84（正式版本） （32 位）
+meowlomo.config.vmc.ie.version: 11.345.17134.0
+meowlomo.config.vmc.edge.version:  42.17134.1.0
+#vmc.config.retrofit.ems.baseUrl: http://10.0.100.108:8090/
+#vmc.config.retrofit.atm.baseUrl: http://10.0.100.201:8080/
+#vmc.config.retrofit.ems.baseUrl: http://10.0.100.195:8090/
+#vmc.config.retrofit.atm.baseUrl: http://10.0.100.127:8080/
+
+vmc.config.retrofit.ems.baseUrl: http://10.0.30.12:8090/
+vmc.config.retrofit.atm.baseUrl: http://10.0.30.12:8080/
+
+#vmc.config.retrofit.ems.baseUrl: http://10.0.100.142:8190/
+#vmc.config.retrofit.atm.baseUrl: http://10.0.100.142:8180/
+#vmc.config.retrofit.ems.baseUrl: http://192.168.5.82:8090/
+#vmc.config.retrofit.atm.baseUrl: http://192.168.5.81:8080/
+vmc.config.reboot-on-fail: false
+#register retry
+vmc.config.registery.retry: 5
+meowlomo.security.jwt.key: UK/QTajhdKihRi3y3dCIyXKBmAl3U82k52KG3O4WeKwYvzwSsytwQIMWhM80eNf++Io4qlnr8fNu2teEmrJy2g==
+meowlomo.task.worker.binteractiveenabled: true
+meowlomo.task.worker.corepoolsize: 10
+meowlomo.task.worker.maxpoolsize: 100
+meowlomo.task.worker.queuecapacity: 10
+meowlomo.config.service.file.type: samba
+meowlomo.config.service.file.path: www/result
+meowlomo.config.service.file.username: 
+meowlomo.config.service.file.password: 
+meowlomo.config.service.file.url: 10.0.30.12
+meowlomo.config.service.file.hostname: 10.0.30.12
+meowlomo.config.service.file.domain: /
+meowlomo.config.service.file.sharename: web
+
+vmc.config.log.localvmclog: D:\\VMC_log
+meowlomo.runtime.config.singleton: false
+meowlomo.runtime.config.logFile: true
+meowlomo.runtime.config.writetask: true
+meowlomo.runtime.config.closesystemout: false
+meowlomo.runtime.config.closesystemerr: false
+#拒绝非指定EMS的server发起的调用
+meowlomo.runtime.config.refuseAnonymousEMS: true
+
+meowlomo.config.vmc.group: DEV
+meowlomo.config.vmc.vpncontext: false
+#meowlomo.config.vmc.hardcodeipaddress: 192.168.101.215
+meowlomo.config.vmc.hardcodeipaddress: 10.242.3.2
+meowlomo.config.vmc.hardcodemac: 54-EE-75-42-FC-26
+meowlomo.config.vmc.systemMemory: 16
+meowlomo.config.vmc.lang: zh-cn
+
+meowlomo:
+  bundles:
+    version:
+      webdriver: 1.0.5
+      webapitest: 1.0.5
+      redis: 1.0.5
+      file: 1.0.4
+      expression: 1.0.0
+      db: 1.0.4
+      api: 1.0.5
+      
+# ===================================================================
+# COMMON SPRING BOOT PROPERTIES
+# ===================================================================
+
+spring:
+  profiles:
+    active: dev
+
+# IDENTITY (ContextIdApplicationContextInitializer)
+  application:
+    name: meowlomo VMC
+
+# BANNER
+# spring.banner.charset=UTF-8 # Banner file encoding.
+# spring.banner.location=classpath:banner.txt # Banner text resource location.
+# spring.banner.image.location=classpath:banner.gif # Banner image file location (jpg or png can also be used).
+# spring.banner.image.width=76 # Width of the banner image in chars.
+# spring.banner.image.height= # Height of the banner image in chars (default based on image height).
+# spring.banner.image.margin=2 # Left hand image margin in chars.
+# spring.banner.image.invert=false # Whether images should be inverted for dark terminal themes.
+  banner:
+    charset: UTF-8
+      
+# JACKSON (JacksonProperties)
+# spring.jackson.date-format= # Date format string or a fully-qualified date format class name. For instance, `yyyy-MM-dd HH:mm:ss`.
+# spring.jackson.default-property-inclusion= # Controls the inclusion of properties during serialization. Configured with one of the values in Jackson's JsonInclude.Include enumeration.
+# spring.jackson.deserialization.*= # Jackson on/off features that affect the way Java objects are deserialized.
+# spring.jackson.generator.*= # Jackson on/off features for generators.
+# spring.jackson.joda-date-time-format= # Joda date time format string. If not configured, "date-format" is used as a fallback if it is configured with a format string.
+# spring.jackson.locale= # Locale used for formatting.
+# spring.jackson.mapper.*= # Jackson general purpose on/off features.
+# spring.jackson.parser.*= # Jackson on/off features for parsers.
+# spring.jackson.property-naming-strategy= # One of the constants on Jackson's PropertyNamingStrategy. Can also be a fully-qualified class name of a PropertyNamingStrategy subclass.
+# spring.jackson.serialization.*= # Jackson on/off features that affect the way Java objects are serialized.
+# spring.jackson.time-zone= #  Time zone used when formatting dates. For instance, "America/Los_Angeles" or "GMT+10".
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ssXXX
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non-null
+    deserialization:
+      fail-on-unknown-properties: false
+    time-zone: Asia/Shanghai
+
+# Email (MailProperties)
+# spring.mail.default-encoding=UTF-8 # Default MimeMessage encoding.
+# spring.mail.host= # SMTP server host. For instance, `smtp.example.com`.
+# spring.mail.jndi-name= # Session JNDI name. When set, takes precedence over other Session settings.
+# spring.mail.password= # Login password of the SMTP server.
+# spring.mail.port= # SMTP server port.
+# spring.mail.properties.*= # Additional JavaMail Session properties.
+# spring.mail.protocol=smtp # Protocol used by the SMTP server.
+# spring.mail.test-connection=false # Whether to test that the mail server is available on startup.
+# spring.mail.username= # Login user of the SMTP server.
+  mail:
+    host: 
+    default-encoding: UTF-8
+    jndi-name: ems-mail
+    username: 
+    password: 
+    port: 587
+    protocol: smtp
+    test-connection: false
+    properties:
+      mail.smtp.starttls.enable: true
+      mail.smtp.socketFactory.port: 587
+      mail.smtp.auth: true
+      mail.smtp.ssl.trust: "mail.meowlomo.email"
+      
+# FILE ENCODING (FileEncodingApplicationListener)
+# spring.mandatory-file-encoding= # Expected character encoding the application must use.
+  mandatory-file-encoding: UTF-8
+
+# HTTP encoding (HttpEncodingProperties)
+# spring.http.encoding.charset=UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
+# spring.http.encoding.enabled=true # Whether to enable http encoding support.
+# spring.http.encoding.force= # Whether to force the encoding to the configured charset on HTTP requests and responses.
+# spring.http.encoding.force-request= # Whether to force the encoding to the configured charset on HTTP requests. Defaults to true when "force" has not been specified.
+# spring.http.encoding.force-response= # Whether to force the encoding to the configured charset on HTTP responses.
+# spring.http.encoding.mapping= # Locale in which to encode mapping.
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+# JERSEY (JerseyProperties)
+# spring.jersey.application-path= # Path that serves as the base URI for the application. If specified, overrides the value of "@ApplicationPath".
+# spring.jersey.filter.order=0 # Jersey filter chain order.
+# spring.jersey.init.*= # Init parameters to pass to Jersey through the servlet or filter.
+# spring.jersey.servlet.load-on-startup=-1 # Load on startup priority of the Jersey servlet.
+# spring.jersey.type=servlet # Jersey integration type.
+  jersey:
+    application-path: /api
+         
+  mvc:
+    servlet:
+      path: /
+#server   
+server:
+  port: 8100
+
+dubbo:
+  application:
+    name: meowlomo-VMC
+# Spring MVC dispatcher servlet path. Needs to be different than Jersey's to enable/disable Actuator endpoints access (/info, /health, ...)
+# server.servlet.path: /
+
+# http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints
+# http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-use-actuator-with-jersey
+
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    metrics:
+      enabled: true
+
+# app name and build version updated during build process from Maven properties.
+info:
+  app:
+    name: VMC
+  build:
+    version: v1 

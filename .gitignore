@@ -1,0 +1,17 @@
+/target/
+/bin
+/build
+/.gradle
+LOG_FILE_IS_UNDEFINED
+.DS_Store
+tmp.jpg
+/.settings
+/.classpath
+/.project
+application.log
+/libs/configuration/org.eclipse.core.runtime
+/libs/configuration/org.eclipse.equinox.app
+/libs/configuration/org.eclipse.osgi
+/libs/configuration/*.log
+tmp2.jpg
+tmp3.jpg

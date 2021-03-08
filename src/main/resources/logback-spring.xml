@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+          <charset>UTF-8</charset>
+          <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>application.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1000MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold> <!-- default 20, means drop lower event when has 20% capacity remaining -->
+        <appender-ref ref="FILE" />
+        <queueSize>1</queueSize><!-- default 256 -->
+        <includeCallerData>false</includeCallerData> <!-- default false -->
+        <neverBlock>false</neverBlock><!-- default false, set to true to cause the Appender not block the application and just drop the messages -->
+    </appender>
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="ASYNC_FILE"/>
+        </root>
+    </springProfile>
+    <springProfile name="dev">
+        <logger name="org.flywaydb" level="INFO"/>
+        <logger name="io.swagger" level="INFO"/>
+        <logger name="org.reflections.Reflections" level="INFO"/>
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <springProfile name="test">
+        <logger name="com.meowlomo" level="DEBUG"/>
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+        </root>
+    </springProfile>
+</configuration>
